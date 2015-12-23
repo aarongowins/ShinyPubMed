@@ -1,0 +1,8 @@
+Title: PubMed Search
+Author: Aaron Gowins
+AuthorUrl: https://www.linkedin.com/in/aarongowins
+License: GPL-3
+DisplayMode: Showcase
+Tags: getting-started
+Type: Shiny
+Depends:R (>= 3.1.0)
