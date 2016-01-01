@@ -1,3 +1,4 @@
+## This is how to get code to github !!
 
 
 library(shiny)
@@ -6,7 +7,7 @@ library(qdap)
 library(ggplot2)
 library(RISmed)
 library(wordcloud)
-
+library(DT)
 shinyServer(function(input, output) {
   word1<-eventReactive(input$goButton, {input$text})
   
@@ -36,7 +37,7 @@ shinyServer(function(input, output) {
   })
   
   
-  word2<-eventReactive(input$wordButton, {input$text})
+  word2<-eventReactive(input$goButton, {input$text})
   
   output$wordPlot<-renderPlot({
     d1<-input$date1
@@ -50,7 +51,7 @@ shinyServer(function(input, output) {
   })
   
   
-  word3<-eventReactive(input$authButton, {input$text})
+  word3<-eventReactive(input$goButton, {input$text})
   
   output$authList<-renderTable({
     d1<-input$date1
@@ -63,7 +64,8 @@ shinyServer(function(input, output) {
     colnames(auths)<-"Count"
     auths <- cbind(Author=rownames(auths), auths)
     rownames(auths) <- NULL
-    auths<-head(auths, 6)
+    auths<-head(auths, 10)
+    
   })
   
   word4<-eventReactive(input$HButton, {input$name})
@@ -120,6 +122,47 @@ shinyServer(function(input, output) {
     citations$sums<-cumsum(citations$citations)
     g<-max(which(citations$square<citations$sums))
     paste(input$name,"'s g-index is",g)
+  })
+  
+  word7<-eventReactive(input$compButton, {input$text})
+  
+  output$comparisonPlot<-renderTable({
+    d3<-input$date3
+    d4<-input$date4
+    d5<-input$date5
+    d6<-input$date6
+    res <- EUtilsSummary(word7(), type="esearch", db="pubmed", datetype='pdat', mindate=d3, maxdate=d4, retmax=500)
+    fetch <- EUtilsGet(res, type="efetch", db="pubmed")
+    res1 <- EUtilsSummary(word7(), type="esearch", db="pubmed", datetype='pdat', mindate=d5, maxdate=d6, retmax=500)
+    fetch1 <- EUtilsGet(res1, type="efetch", db="pubmed")
+    
+    library(qdap)
+    
+    articles1<-data.frame('Abstract'=AbstractText(fetch))
+    articles2<-data.frame('Abstract'=AbstractText(fetch1))
+    #abstracts1<-articles1[which(articles1$Year==argument),]
+    #abstracts1<-data.frame(abstracts1)
+    abstractsOnly1<-as.character(articles1$Abstract)
+    abstractsOnly2<-as.character(articles2$Abstract)
+    abstractsOnly1<-paste(abstractsOnly1, sep="", collapse="")
+    abstractsOnly2<-paste(abstractsOnly2, sep="", collapse="")
+    abstractsOnly1<-as.vector(abstractsOnly1)
+    abstractsOnly2<-as.vector(abstractsOnly2)
+    abstractsOnly1<-strip(abstractsOnly1)
+    abstractsOnly2<-strip(abstractsOnly2)
+    first<-rm_stopwords(abstractsOnly1, stopwords = qdapDictionaries::Top100Words)
+    second<-rm_stopwords(abstractsOnly2, stopwords = qdapDictionaries::Top100Words)
+    ord1<-as.data.frame(table(first))
+    ord2<-as.data.frame(table(second))
+    ord1<-ord1[order(ord1$Freq, decreasing=TRUE),]
+    ord2<-ord2[order(ord2$Freq, decreasing=TRUE),]
+    ord1<-head(ord1,20)
+    ord2<-head(ord2,20)
+    ord<-cbind(ord1,ord2)
+    row.names(ord)<-NULL
+    ord
+    
+    
   })
   
   
