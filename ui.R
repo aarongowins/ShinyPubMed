@@ -6,7 +6,7 @@ dashboardPage(skin="blue",
               
               #tags$head(
               # tags$link(rel = "stylesheet", type = "text/css", href = "bootstrap.css"),
-              #),
+             #),
               #tabsetPanel(
               #tabPanel("PubMed Search",
               dashboardHeader(title="PubMed Search",titleWidth=450),

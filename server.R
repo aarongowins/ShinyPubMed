@@ -1,6 +1,6 @@
 ## This is how to get code to github !!
 
-
+# libraries we need
 library(shiny)
 library(SnowballC)
 library(qdap)
@@ -8,6 +8,8 @@ library(ggplot2)
 library(RISmed)
 library(wordcloud)
 library(DT)
+
+# Create the graph
 shinyServer(function(input, output) {
   word1<-eventReactive(input$goButton, {input$text})
   
@@ -36,7 +38,7 @@ shinyServer(function(input, output) {
     q 
   })
   
-  
+  # Create the wordcloud
   word2<-eventReactive(input$goButton, {input$text})
   
   output$wordPlot<-renderPlot({
@@ -50,7 +52,7 @@ shinyServer(function(input, output) {
     wordcloud(abstracts, min.freq=10, max.words=70, colors=brewer.pal(7,"Dark2"))
   })
   
-  
+  # Create the author table
   word3<-eventReactive(input$goButton, {input$text})
   
   output$authList<-renderTable({
@@ -68,6 +70,7 @@ shinyServer(function(input, output) {
     
   })
   
+  # Create the author h-index
   word4<-eventReactive(input$HButton, {input$name})
   
   output$HPlot<-renderText({
@@ -84,6 +87,8 @@ shinyServer(function(input, output) {
     paste(input$name,"'s h-index is",h)
   })
   
+  
+  # Create the m-quotient
   word5<-eventReactive(input$MButton, {input$name})
   
   output$MPlot<-renderText({
@@ -105,6 +110,7 @@ shinyServer(function(input, output) {
     paste(input$name,"'s m-quotient is",signif(m,3))
   })
   
+  # Create the q-index
   word6<-eventReactive(input$GButton, {input$name})
   
   output$GPlot<-renderText({
@@ -124,6 +130,8 @@ shinyServer(function(input, output) {
     paste(input$name,"'s g-index is",g)
   })
   
+  
+  # Back to the keyword search, create the timespan comparison, ** a little sloppy here...
   word7<-eventReactive(input$compButton, {input$text})
   
   output$comparisonPlot<-renderTable({
