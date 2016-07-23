@@ -170,9 +170,6 @@ shinyServer(function(input, output) {
     row.names(ord)<-NULL
     ord
     
-    
   })
-  
-  
   
 })
