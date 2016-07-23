@@ -1,4 +1,3 @@
-
 library(shinydashboard)
 library(shiny)
 library(shinythemes)
@@ -25,9 +24,7 @@ dashboardPage(skin="blue",
                                                            font-size: 24px;
                                                            }
                                                            ')))
-                                 
-                                 
-                                 
+                               
                                  )
                                  ),
               
@@ -108,14 +105,7 @@ dashboardPage(skin="blue",
                                             you might bump up against the search limit. 
                                             Try being more specific or searching fewer years."),
                                    
-                                   
-                                   
-                                   
-                                   
-                                   
-                                   
-                                   
-                                   
+                                  
                                    tabPanel("BARPLOT",
                                             h4("A barplot of publications containing your keyword per year."),
                                             plotOutput("distPlot"),width=12,
@@ -135,10 +125,8 @@ dashboardPage(skin="blue",
                                             
                                             fluidRow(
                                               column(width=4,
-                                                     
-                                                     
-                                                     
-                                                     h3( "First Timeframe"),
+                                                    
+                                                    h3( "First Timeframe"),
                                                      textInput("date3", label = h4("From"),value=""),
                                                      textInput("date4", label = h4("To"),  value = ""),
                                                      tags$hr(),
@@ -152,20 +140,12 @@ dashboardPage(skin="blue",
                                               column(width=4,offset=1,
                                                      tableOutput("comparisonPlot")
                                               )
-                                            )
-                                            
-                                            
-                                            
-                                            
-                                            
+                                            )                                                                
                                             )
                                    )
                           )
                   ),
-                  
-                  
-                  
-                  
+                                        
                   tabItem(tabName="index",
                           fluidRow(
                             tabBox(
@@ -185,32 +165,7 @@ dashboardPage(skin="blue",
                                        )
                           )
               )
-              
-              
-              
                           )
                 )
               )
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

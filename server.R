@@ -1,4 +1,4 @@
-## This is how to get code to github !!
+## This is how to get your code to github !!
 
 # libraries we need
 library(shiny)
@@ -131,7 +131,7 @@ shinyServer(function(input, output) {
   })
   
   
-  # Back to the keyword search, create the timespan comparison, ** a little sloppy here...
+  # Back to the keyword search, create the timespan comparison
   word7<-eventReactive(input$compButton, {input$text})
   
   output$comparisonPlot<-renderTable({
